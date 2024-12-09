@@ -73,7 +73,7 @@
 
   window.addEventListener("keydown" , function(e)
 {
-  const playButtonKey = document.querySelector(`audio[data-key]`) ;
+  const playButtonKey = document.querySelector(`audio[data-key="${e.keyCode}"]`) ;
   const key = document.querySelector(`.key[data-key = "${e.keyCode}"]`) ; 
   console.log(playButtonKey) ; 
   if(!playButtonKey)
