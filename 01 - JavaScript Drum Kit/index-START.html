@@ -60,8 +60,44 @@
 
 <script>
 
+  function play(e)
+  {
+    const playButtonKey = document.querySelector("audio") ; 
+    playButtonKey.currentTime = 0 ; 
+    playButtonKey.play() ; 
+    this.classList.add('playing') ; 
+  }
+     
+  let all = document.querySelectorAll(".key") ; 
+  all.forEach(key => key.addEventListener("click" , play)) ; 
+
+  window.addEventListener("keydown" , function(e)
+{
+  const playButtonKey = document.querySelector(`audio[data-key]`) ;
+  const key = document.querySelector(`.key[data-key = "${e.keyCode}"]`) ; 
+  console.log(playButtonKey) ; 
+  if(!playButtonKey)
+  {
+    return ; 
+  }
+  playButtonKey.currentTime =0 ;
+  playButtonKey.play() ;
+  key.classList.add('playing') ; 
+})
+
+function removeTransition(e)
+{
+  if(!(e.propertyName === "transform"))
+  {
+    return ; 
+  }
+  console.log(e.propertyName) ; 
+  this.classList.remove('playing') ; 
+}
+
+
+const keys = document.querySelectorAll(".key") ; 
+keys.forEach(key => key.addEventListener("transitionend" , removeTransition) ); 
 </script>
-
-
 </body>
 </html>
