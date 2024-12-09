@@ -10,6 +10,12 @@
 
     <div class="clock">
       <div class="clock-face">
+        <div class="numbers">
+          <div class="num-12 num">12</div>
+          <div class="num-3 num">3</div>
+          <div class="num-6 num">6</div>
+          <div class="num-9 num">9</div>
+        </div>
         <div class="hand hour-hand"></div>
         <div class="hand min-hand"></div>
         <div class="hand second-hand"></div>
@@ -34,6 +40,23 @@
       min-height: 100vh;
       align-items: center;
     }
+
+    .numbers
+    {
+      position : relative ; 
+      transform : scale(4px,5px) ;
+      color : rgb(6, 37, 6) ;  
+    }
+
+    .num 
+    {
+      position : relative ; 
+      z-index : 23 ; 
+    }
+    .num-12{top:0.2em ; left : 0px ;}
+    .num-6{top : 12em; left : 0px ; }
+    .num-3{top : 6em;  left : 7em ;}
+    .num-9{top : 4em ; left : -7em ; }
 
     .clock {
       width: 30rem;
@@ -63,13 +86,44 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin : 100% ; 
+      transition-timing-function: cubic-bezier(0.1 , 0 , 0.58,1);
+      transform : rotate(90deg) ;
     }
 
+    .second-hand
+    {
+      background: rgb(163, 33, 33);  
+    }
+    
+    .minute-hand
+    {
+      background-color: rgb(53, 51, 51); 
+    }
   </style>
-
   <script>
+    let hourHand = document.querySelector(".hour-hand") ; 
+    let minHand = document.querySelector(".min-hand") ; 
+    let secHand = document.querySelector(".second-hand")  ;
+    
+    function setTime()
+    {
+      
+      let dateNow = new Date() ; 
+      let seconds = dateNow.getSeconds() ; 
+      let minutes = dateNow.getMinutes() ; 
+      let hours = dateNow.getHours() ; 
 
+      let secDegree = (seconds/ 60) *360 + 90 + (minutes*360);
+      let minDegree = ((minutes/ 60) *360) + 90 ;
+      let hoursDegree = ((hours/12)*360) + 90 ; 
+      
+      secHand.style.transform = `rotate(${secDegree}deg)` ; 
+      minHand.style.transform = `rotate(${minDegree}deg)` ; 
+      hourHand.style.transform = `rotate(${hoursDegree}deg)` ; 
+    }
 
+    setInterval(setTime , 1000) ; 
   </script>
 </body>
 </html>
